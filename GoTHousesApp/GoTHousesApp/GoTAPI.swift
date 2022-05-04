@@ -24,7 +24,30 @@ class GoTAPI {
         }
     }
     
-    static func load<T: Codable>(url: URL?, onSuccess: @escaping ((T) -> Void), onFailure: @escaping ((Error) -> Void)) {
+    static func loadCharacter(url: URL?, onSuccess: @escaping ((Char) -> Void), onFailure: @escaping ((Error) -> Void)) {
+        Self.load(url: url, onSuccess: onSuccess, onFailure: onFailure)
+    }
+    
+    static func load<T: Codable>(_ type: T.Type = T.self, urls: [URL?], onSuccess: @escaping (([T]) -> Void), onFailure: @escaping ((Error) -> Void)) {
+        var objects: [T] = []
+        let group = DispatchGroup()
+        for url in urls {
+            group.enter()
+            load(type, url: url, onSuccess: { value in
+                objects.append(value)
+                group.leave()
+            }, onFailure: { error in
+                group.leave()
+                onFailure(error)
+            })
+        }
+        group.notify(queue: .main, execute: {
+            onSuccess(objects)
+        })
+    
+    }
+    
+    static func load<T: Codable>(_ type: T.Type = T.self, url: URL?, onSuccess: @escaping ((T) -> Void), onFailure: @escaping ((Error) -> Void)) {
         guard let url = url else {
             return onFailure(APIError.noURL)
         }
@@ -51,14 +74,16 @@ class GoTAPI {
         dataTask.resume()
     }
     
-    static func loadAllHouses(onSuccess: @escaping (([House]) -> Void), onFailure: @escaping ((Error) -> Void)) {
-        let request = URLRequest(url: URL(string: "https://www.anapioficeandfire.com/api/houses")!)
+    static func loadHouses(page: Int, onSuccess: @escaping (([House]) -> Void), onFailure: @escaping ((Error) -> Void)) {
+        let request = URLRequest(url: URL(string: "https://www.anapioficeandfire.com/api/houses?page=\(page)&pageSize=30")!)
         
         let dataTask = URLSession(configuration: .default).dataTask(with: request, completionHandler: { data, response, error in
             if let error = error {
                 return onFailure(error)
             }
-            guard let data = data else {
+            guard let data = data,
+                let httpResponse = response as? HTTPURLResponse,
+                httpResponse.statusCode == 200 else {
                 return onFailure(APIError.noData)
             }
             
@@ -70,6 +95,13 @@ class GoTAPI {
             }
         })
         dataTask.resume()
+    }
+    
+    /// Set page to 2 because initial loading is done with `loadHouses(page:)`
+    fileprivate static var page: Int = 2
+    static func loadMoreHouses(onSuccess: @escaping (([House]) -> Void), onFailure: @escaping ((Error) -> Void)) {
+        loadHouses(page: page, onSuccess: onSuccess, onFailure: onFailure)
+        page += 1
     }
 }
 

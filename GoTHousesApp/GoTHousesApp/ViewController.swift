@@ -13,6 +13,7 @@ class ViewController: UIViewController {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.rowHeight = UITableView.automaticDimension
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         return tableView
     }()
     
@@ -32,6 +33,7 @@ class ViewController: UIViewController {
         
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .automatic
+        UILabel.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).adjustsFontSizeToFitWidth = true
         
         self.view.addSubview(tableView)
         
@@ -53,7 +55,7 @@ class ViewController: UIViewController {
     
     private func loadData() {
         showIndicator()
-        GoTAPI.loadAllHouses(onSuccess: { [weak self] houses in
+        GoTAPI.loadHouses(page: 1, onSuccess: { [weak self] houses in
             DispatchQueue.main.sync {
                 self?.houses = houses
                 self?.hideIndicator()
@@ -62,6 +64,7 @@ class ViewController: UIViewController {
             }
         }, onFailure: { [weak self] error in
             DispatchQueue.main.sync {
+                self?.hideIndicator()
                 self?.showAlert(for: error, onReload: {
          
                     self?.loadData()
@@ -79,8 +82,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let house = houses[indexPath.row]
         
         var defaultConfig = cell.defaultContentConfiguration()
@@ -92,7 +94,37 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        defer {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+        
+        let house = houses[indexPath.row]
+        let detailsVC = DetailsViewController(house)
+        
+        self.navigationController?.pushViewController(detailsVC, animated: true)
+    }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row + 1 == houses.count {
+            self.showIndicator()
+            GoTAPI.loadMoreHouses(onSuccess: { [weak self] newHouses in
+                DispatchQueue.main.sync {
+                    self?.hideIndicator()
+                    self?.houses.append(contentsOf: newHouses)
+                    let reloadableIndexPaths = self?.getIndexPathsFor(startIndex: indexPath.row + 1, endIndex: self?.houses.count) ?? []
+                    self?.tableView.insertRows(at: reloadableIndexPaths, with: .fade)
+                }
+            }, onFailure: { [weak self] error in
+                DispatchQueue.main.sync {
+                    self?.hideIndicator()
+                    self?.showAlert(for: error, onReload: {
+                        self?.loadData()
+                    })
+                }
+            })
+        }
+    }
 }
 
 
@@ -129,5 +161,17 @@ extension UIViewController {
             alertController.dismiss(animated: true)
         }))
         self.present(alertController, animated: true)
+    }
+    
+    func getIndexPathsFor(startIndex: Int?, endIndex: Int?) -> [IndexPath] {
+        guard let startIndex = startIndex, let endIndex = endIndex else {
+            return []
+        }
+
+        var indexPaths: [IndexPath] = []
+        for index in startIndex..<endIndex {
+            indexPaths.append(IndexPath(row: index, section: 0))
+        }
+        return indexPaths
     }
 }
