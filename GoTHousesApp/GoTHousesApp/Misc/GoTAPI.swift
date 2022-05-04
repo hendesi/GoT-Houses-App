@@ -9,25 +9,7 @@ import Foundation
 import UIKit
 
 class GoTAPI {
-    
-    enum GoTResources {
-        case houses
-        case char(id: String)
-        
-        var url: URL? {
-            switch self {
-            case .houses:
-                return URL(string: "https://www.anapioficeandfire.com/api/houses")
-            case .char(let id):
-                return URL(string: "https://www.anapioficeandfire.com/api/characters/\(id)")
-            }
-        }
-    }
-    
-    static func loadCharacter(url: URL?, onSuccess: @escaping ((Char) -> Void), onFailure: @escaping ((Error) -> Void)) {
-        Self.load(url: url, onSuccess: onSuccess, onFailure: onFailure)
-    }
-    
+    /// Loads the items of the given `[URL]` and transforms them to the provided codable type. The function returns once all loadings have been completed.
     static func load<T: Codable>(_ type: T.Type = T.self, urls: [URL?], onSuccess: @escaping (([T]) -> Void), onFailure: @escaping ((Error) -> Void)) {
         var objects: [T] = []
         let group = DispatchGroup()
@@ -47,6 +29,7 @@ class GoTAPI {
     
     }
     
+    /// Loads the items of the given `url` and transforms them to the provided codable type. The function returns once all loadings have been completed.
     static func load<T: Codable>(_ type: T.Type = T.self, url: URL?, onSuccess: @escaping ((T) -> Void), onFailure: @escaping ((Error) -> Void)) {
         guard let url = url else {
             return onFailure(APIError.noURL)

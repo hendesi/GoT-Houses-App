@@ -13,7 +13,7 @@
 		1E1480A22822837300F40D62 /* Char.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1480A12822837300F40D62 /* Char.swift */; };
 		1EF7D3B328203B8500288D9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF7D3B228203B8500288D9F /* AppDelegate.swift */; };
 		1EF7D3B528203B8500288D9F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF7D3B428203B8500288D9F /* SceneDelegate.swift */; };
-		1EF7D3B728203B8500288D9F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF7D3B628203B8500288D9F /* ViewController.swift */; };
+		1EF7D3B728203B8500288D9F /* HousesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF7D3B628203B8500288D9F /* HousesViewController.swift */; };
 		1EF7D3BA28203B8500288D9F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EF7D3B828203B8500288D9F /* Main.storyboard */; };
 		1EF7D3BC28203B8600288D9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1EF7D3BB28203B8600288D9F /* Assets.xcassets */; };
 		1EF7D3BF28203B8600288D9F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EF7D3BD28203B8600288D9F /* LaunchScreen.storyboard */; };
@@ -29,7 +29,7 @@
 		1EF7D3AF28203B8500288D9F /* GoTHousesApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoTHousesApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EF7D3B228203B8500288D9F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1EF7D3B428203B8500288D9F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1EF7D3B628203B8500288D9F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1EF7D3B628203B8500288D9F /* HousesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousesViewController.swift; sourceTree = "<group>"; };
 		1EF7D3B928203B8500288D9F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1EF7D3BB28203B8600288D9F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1EF7D3BE28203B8600288D9F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -58,6 +58,25 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		1E1480A4282287CF00F40D62 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1E14809D2822747000F40D62 /* CharacterListViewController.swift */,
+				1E148099282128D100F40D62 /* DetailsViewController.swift */,
+				1EF7D3B628203B8500288D9F /* HousesViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		1E1480A5282287D800F40D62 /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				1EF7D3C628203D2300288D9F /* GoTAPI.swift */,
+				1E14809F28227B3F00F40D62 /* Extensions.swift */,
+			);
+			path = Misc;
+			sourceTree = "<group>";
+		};
 		1EF7D3A628203B8500288D9F = {
 			isa = PBXGroup;
 			children = (
@@ -77,18 +96,15 @@
 		1EF7D3B128203B8500288D9F /* GoTHousesApp */ = {
 			isa = PBXGroup;
 			children = (
-				1E14809D2822747000F40D62 /* CharacterListViewController.swift */,
-				1E148099282128D100F40D62 /* DetailsViewController.swift */,
+				1E1480A4282287CF00F40D62 /* Controller */,
 				1E1480A3282283A000F40D62 /* Model */,
 				1EF7D3B228203B8500288D9F /* AppDelegate.swift */,
 				1EF7D3B428203B8500288D9F /* SceneDelegate.swift */,
-				1EF7D3B628203B8500288D9F /* ViewController.swift */,
 				1EF7D3B828203B8500288D9F /* Main.storyboard */,
 				1EF7D3BB28203B8600288D9F /* Assets.xcassets */,
 				1EF7D3BD28203B8600288D9F /* LaunchScreen.storyboard */,
 				1EF7D3C028203B8600288D9F /* Info.plist */,
-				1EF7D3C628203D2300288D9F /* GoTAPI.swift */,
-				1E14809F28227B3F00F40D62 /* Extensions.swift */,
+				1E1480A5282287D800F40D62 /* Misc */,
 			);
 			path = GoTHousesApp;
 			sourceTree = "<group>";
@@ -164,7 +180,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1EF7D3B728203B8500288D9F /* ViewController.swift in Sources */,
+				1EF7D3B728203B8500288D9F /* HousesViewController.swift in Sources */,
 				1E1480A028227B3F00F40D62 /* Extensions.swift in Sources */,
 				1EF7D3B328203B8500288D9F /* AppDelegate.swift in Sources */,
 				1EF7D3B528203B8500288D9F /* SceneDelegate.swift in Sources */,

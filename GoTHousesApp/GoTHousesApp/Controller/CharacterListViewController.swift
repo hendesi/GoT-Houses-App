@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Lists `Char` given their URLs
 class CharacterListViewController: UITableViewController {
     
     var urls: [URL?] = []
@@ -56,7 +57,6 @@ class CharacterListViewController: UITableViewController {
         }, onFailure: { [weak self] error in
             self?.hideIndicator()
             self?.showAlert(for: error, onReload: {
-     
                 self?.loadData()
             })
         })

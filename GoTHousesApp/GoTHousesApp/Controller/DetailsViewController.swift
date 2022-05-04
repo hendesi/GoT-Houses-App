@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+/// Displays a tableview of the properties of a given object. 
 class DetailsViewController<T: Codable>: UITableViewController {
     
     var object: T? {
