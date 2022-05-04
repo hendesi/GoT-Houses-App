@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1E14809A282128D100F40D62 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E148099282128D100F40D62 /* DetailsViewController.swift */; };
-		1E14809C2821291500F40D62 /* GoTTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E14809B2821291500F40D62 /* GoTTableViewController.swift */; };
 		1E14809E2822747000F40D62 /* CharacterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E14809D2822747000F40D62 /* CharacterListViewController.swift */; };
+		1E1480A028227B3F00F40D62 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E14809F28227B3F00F40D62 /* Extensions.swift */; };
+		1E1480A22822837300F40D62 /* Char.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1480A12822837300F40D62 /* Char.swift */; };
 		1EF7D3B328203B8500288D9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF7D3B228203B8500288D9F /* AppDelegate.swift */; };
 		1EF7D3B528203B8500288D9F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF7D3B428203B8500288D9F /* SceneDelegate.swift */; };
 		1EF7D3B728203B8500288D9F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF7D3B628203B8500288D9F /* ViewController.swift */; };
@@ -22,8 +23,9 @@
 
 /* Begin PBXFileReference section */
 		1E148099282128D100F40D62 /* DetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
-		1E14809B2821291500F40D62 /* GoTTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoTTableViewController.swift; sourceTree = "<group>"; };
 		1E14809D2822747000F40D62 /* CharacterListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListViewController.swift; sourceTree = "<group>"; };
+		1E14809F28227B3F00F40D62 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		1E1480A12822837300F40D62 /* Char.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Char.swift; sourceTree = "<group>"; };
 		1EF7D3AF28203B8500288D9F /* GoTHousesApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoTHousesApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EF7D3B228203B8500288D9F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1EF7D3B428203B8500288D9F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -47,11 +49,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E1480A3282283A000F40D62 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1EF7D3C82820400300288D9F /* House.swift */,
+				1E1480A12822837300F40D62 /* Char.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		1EF7D3A628203B8500288D9F = {
 			isa = PBXGroup;
 			children = (
-				1E14809D2822747000F40D62 /* CharacterListViewController.swift */,
-				1E14809B2821291500F40D62 /* GoTTableViewController.swift */,
 				1EF7D3B128203B8500288D9F /* GoTHousesApp */,
 				1EF7D3B028203B8500288D9F /* Products */,
 			);
@@ -68,8 +77,9 @@
 		1EF7D3B128203B8500288D9F /* GoTHousesApp */ = {
 			isa = PBXGroup;
 			children = (
+				1E14809D2822747000F40D62 /* CharacterListViewController.swift */,
 				1E148099282128D100F40D62 /* DetailsViewController.swift */,
-				1EF7D3C82820400300288D9F /* House.swift */,
+				1E1480A3282283A000F40D62 /* Model */,
 				1EF7D3B228203B8500288D9F /* AppDelegate.swift */,
 				1EF7D3B428203B8500288D9F /* SceneDelegate.swift */,
 				1EF7D3B628203B8500288D9F /* ViewController.swift */,
@@ -78,6 +88,7 @@
 				1EF7D3BD28203B8600288D9F /* LaunchScreen.storyboard */,
 				1EF7D3C028203B8600288D9F /* Info.plist */,
 				1EF7D3C628203D2300288D9F /* GoTAPI.swift */,
+				1E14809F28227B3F00F40D62 /* Extensions.swift */,
 			);
 			path = GoTHousesApp;
 			sourceTree = "<group>";
@@ -154,9 +165,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				1EF7D3B728203B8500288D9F /* ViewController.swift in Sources */,
+				1E1480A028227B3F00F40D62 /* Extensions.swift in Sources */,
 				1EF7D3B328203B8500288D9F /* AppDelegate.swift in Sources */,
 				1EF7D3B528203B8500288D9F /* SceneDelegate.swift in Sources */,
-				1E14809C2821291500F40D62 /* GoTTableViewController.swift in Sources */,
+				1E1480A22822837300F40D62 /* Char.swift in Sources */,
 				1E14809E2822747000F40D62 /* CharacterListViewController.swift in Sources */,
 				1EF7D3C92820400300288D9F /* House.swift in Sources */,
 				1EF7D3C728203D2300288D9F /* GoTAPI.swift in Sources */,
